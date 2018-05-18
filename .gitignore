@@ -1,0 +1,15 @@
+build/
+build/*
+dist/
+dist/*
+yellowant.egg-info/
+yellowant.egg-info/*
+.idea/*
+.vscode/
+.idea/
+**/*.pyc
+yellowant.egg.info/
+yellowant.egg.info/*
+venv
+app.json
+app.yellowant
