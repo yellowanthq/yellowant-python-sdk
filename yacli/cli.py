@@ -40,7 +40,7 @@ class Context(object):
     def get_auth_from_config_file(self):
         """Load authentication credentials from config file"""
         # get home directory for UNIX or windows systems
-        self.config_file = os.path.join((os.getenv("HOME") or os.getenv("HOMEPATH")), ".yellowant")
+        self.config_file = os.path.join((os.getenv("HOME") or ("C:" + os.getenv("HOMEPATH"))), ".yellowant")
         config = ConfigParser.ConfigParser()
         config.read(self.config_file)
         self.token = config.get("YELLOWANT_DEV", "token")
