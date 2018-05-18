@@ -16,7 +16,7 @@ def save_token(token, host, config_file):
         config.add_section('YELLOWANT_DEV')
     config.set('YELLOWANT_DEV', 'token', token)
     config.set("YELLOWANT_DEV", "host", host)
-    with open(config_file, 'wb') as configfile:
+    with open(config_file, 'w') as configfile:
         config.write(configfile)
 
     return token

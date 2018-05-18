@@ -49,6 +49,5 @@ def save_application_json(application_json, app_filename=APP_FILENAME):
         json.dump(application_json, outfile, indent=4, sort_keys=True)
 
 def save_application_yaml(application_json, app_filename=APP_FILENAME):
-    application_json.pop("id")
     with open(app_filename, "w") as outfile:
         yaml.safe_dump(application_json, outfile, allow_unicode=True, default_flow_style=False)

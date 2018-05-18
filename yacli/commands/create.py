@@ -17,10 +17,10 @@ def cli(ctx, filename):
         data = yaml.safe_load(filename.read())
         data["invoke_name"] = click.prompt("Invoke Name", default=data.get("invoke_name"))
         data["website"] = click.prompt("Website", default=data.get("website"))
-        data["api_url"] = click.prompt("API URL")
-        data["install_page_url"] = click.prompt("Installation URL")
-        data["privacy_policy_url"] = click.prompt("Privacy Policy URL")
-        data["redirect_url"] = click.prompt("Redirect URL")
+        data["api_url"] = click.prompt("API URL", default=data.get("api_url"))
+        data["install_page_url"] = click.prompt("Installation URL", default=data.get("install_page_url"))
+        data["privacy_policy_url"] = click.prompt("Privacy Policy URL", default=data.get("privacy_policy_url"))
+        data["redirect_uris"] = click.prompt("Redirect URL", default=data.get("redirect_uris"))
         req = ctx.post(DEVELOPER_APPLICATION_ENDPOINT, data=json.dumps(data))
         if req.status_code == 201:
             try:
@@ -38,7 +38,8 @@ def cli(ctx, filename):
             try:
                 save_application_yaml(application_json)
                 save_app_config(application_json["id"], application_json["invoke_name"])
-            except:
+            except Exception as e:
+                print(e)
                 raise FilePermissionError("Could not save application data a local file. Please check permissions.")
 
             ctx.log("Successfully created application {} with your YellowAnt developer account."
