@@ -86,7 +86,7 @@ def cli(ctx, invoke_name, website, api_url, install_page_url, privacy_policy_url
             # save app YAML and config details
             try:
                 save_application_yaml(application_json)
-                save_app_config(application_id, application_json["invoke_name"])
+                # save_app_config(application_id, application_json["invoke_name"])
             except Exception as e:
                 raise FilePermissionError("Could not save application data a local file. Please check permissions.")
 
