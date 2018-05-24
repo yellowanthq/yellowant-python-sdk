@@ -53,6 +53,7 @@ def cli(ctx, invoke_name, website, api_url, install_page_url, privacy_policy_url
             
             # log client ID and secret to console and save them in a json
             try:
+                application_id = application_json.pop("id")
                 client_id = application_json.pop("client_id")
                 client_secret = application_json.pop("client_secret")
                 verification_token = application_json.pop("verification_token")
@@ -60,12 +61,14 @@ def cli(ctx, invoke_name, website, api_url, install_page_url, privacy_policy_url
             except:
                 raise AppDataCorrupt("Application data is incomplete.")
             # log values
+            ctx.log("APP ID: " + application_id)
             ctx.log("CLIENT ID: " + client_id)
             ctx.log("CLIENT SECRET: " + client_secret)
             ctx.log("VERIFICATION TOKEN: " + verification_token)
             ctx.log("RTM TOKEN: " + rtm_token)
             # save credentials json
             credentials = {
+                "application_id": application_id,
                 "client_id": client_id,
                 "invoke_name": application_json["invoke_name"],
                 "client_secret": client_secret,
@@ -77,11 +80,6 @@ def cli(ctx, invoke_name, website, api_url, install_page_url, privacy_policy_url
                     json.dump(credentials, credentials_json, indent=4, sort_keys=True)
             except:
                 raise FilePermissionError("Could not save credentials information properly.")
-
-            try:
-                application_id = application_json.pop("id")
-            except:
-                raise AppDataCorrupt("There was an issue with the response from YellowAnt.")
             
             # save app YAML and config details
             try:
