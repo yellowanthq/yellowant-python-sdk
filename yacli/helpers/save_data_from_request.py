@@ -9,7 +9,7 @@ def save_data_from_request(request, ctx):
             application_json = json.loads(request.content)
         except:
             raise AppDataCorrupt("Application data could not be parsed.")
-        
+
         # log client ID and secret to console and save them in a json
         try:
             application_id = application_json.pop("id")
@@ -58,5 +58,9 @@ def save_data_from_request(request, ctx):
         raise Exception(msg)
     else:
         # some other error
-        error = json.loads(request.text)
-        raise Exception(error["detail"])
+        try:
+            error = json.loads(request.text)
+            raise Exception(error["detail"])
+        except:
+            error = request.text
+            raise Exception(error)
