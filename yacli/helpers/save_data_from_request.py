@@ -54,11 +54,16 @@ def save_data_from_request(request, ctx):
                 .format(action, application_json["invoke_name"]))
     elif request.status_code == 400:
         # there was an error in the application data
-        error = json.loads(request.text)
-        msg = "\nError: Please check your app data JSON.\n"
-        for key_name in error:
-            msg += key_name + ": " + str(error[key_name][0]) + "\n"
-        raise Exception(msg)
+        try:
+            # try to parse JSON error data
+            error = json.loads(request.text)
+            msg = "\nError: Please check your app data JSON.\n"
+            for key_name in error:
+                msg += key_name + ": " + str(error[key_name][0]) + "\n"
+            raise Exception(msg)
+        except:
+            # error is just in plain text
+            raise Exception(request.text)
     else:
         # some other error
         try:
