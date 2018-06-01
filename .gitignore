@@ -10,6 +10,6 @@ yellowant.egg-info/*
 **/*.pyc
 yellowant.egg.info/
 yellowant.egg.info/*
-venv
+venv*
 app.json
 app.yellowant
