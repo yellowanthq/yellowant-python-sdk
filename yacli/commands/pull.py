@@ -3,8 +3,8 @@ import json, yaml
 import click
 
 from yacli.cli import pass_context
-from yacli.constants import APP_FILENAME, DEVELOPER_APPLICATION_ENDPOINT
-from yacli.common import save_app_config, read_app_id_from_config, save_application_yaml, AppIdInvalid, AppDataCorrupt,\
+from yacli.constants import APP_FILENAME, DEVELOPER_APPLICATION_ENDPOINT, DEVELOPER_APPLICATION_PULL_ENDPOINT
+from yacli.common import save_app_config, save_application_yaml, AppIdInvalid, AppDataCorrupt,\
 FilePermissionError
 from yacli.helpers.save_data_from_request import save_data_from_request
 
@@ -21,14 +21,14 @@ def cli(ctx, app, filename):
         ctx.is_auth_valid()
 
         try:
+            # check if integer ID of application is passed
             app = int(app)
+            req = ctx.get(DEVELOPER_APPLICATION_ENDPOINT + str(app) + "/")
         except:
-            app = read_app_id_from_config(app)
-
-        if app is None:
-            raise AppIdInvalid("Please check if application invoke name details are present in the file: app.yellowant")
-
-        req = ctx.get(DEVELOPER_APPLICATION_ENDPOINT + str(app) + "/")
+            # check if app invoke name is passed
+            app = app
+            print("invoke name")
+            req = ctx.get(DEVELOPER_APPLICATION_PULL_ENDPOINT + "?app=" + app)
 
         save_data_from_request(req, ctx)
     except Exception as e:
