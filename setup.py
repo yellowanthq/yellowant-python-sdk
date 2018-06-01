@@ -5,7 +5,7 @@ import sys
 from setuptools import setup, find_packages
 
 __author__ = 'Vishwa Krishnakumar <vishwa@yellowant.com>'
-__version__ = '0.0.33'
+__version__ = '0.0.34'
 
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
