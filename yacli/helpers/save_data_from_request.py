@@ -6,7 +6,10 @@ def save_data_from_request(request, ctx):
     if str(request.status_code).startswith("2"):
         # application was created or updated
         try:
-            application_json = json.loads(request.content)
+            try: # python 2.7 or >=3.6
+                application_json = json.loads(request.content)
+            except: # python 3.4 and 3.5
+                application_json = json.loads(str(request.content, "utf-8"))
         except:
             raise AppDataCorrupt("Application data could not be parsed.")
 
