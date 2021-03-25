@@ -17,7 +17,7 @@ nose-cov==1.6
 pathlib==1.0.1
 pylint==1.8.1
 python-coveralls==2.1.0
-PyYAML==3.12
+PyYAML==5.4
 requests==2.18.4
 requests_oauthlib>=0.4.0
 responses==0.3.0
