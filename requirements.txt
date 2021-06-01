@@ -23,6 +23,6 @@ requests_oauthlib>=0.4.0
 responses==0.3.0
 singledispatch==3.4.0.3
 six==1.11.0
-urllib3==1.22
+urllib3==1.26.5
 wrapt==1.10.11
 socketIO-client==0.7.2
